@@ -73,7 +73,7 @@ export default {
     })
 
     const handleLogin = ({ username, password }) => {
-      axios.post('http://localhost:5000/login', { username, password }, { withCredentials: true })
+      axios.post('https://cs-grenade-guide-1.onrender.com/login', { username, password }, { withCredentials: true })
         .then(res => {
           if (res.data.success) {
             userStore.login(res.data.username, res.data.role)
@@ -99,7 +99,7 @@ export default {
     }
 
     const logout = () => {
-      axios.post('http://localhost:5000/logout', {}, { withCredentials: true })
+      axios.post('https://cs-grenade-guide-1.onrender.com/logout', {}, { withCredentials: true })
         .then(() => {
           userStore.logout()
           if(route.path.startsWith('/admin')){

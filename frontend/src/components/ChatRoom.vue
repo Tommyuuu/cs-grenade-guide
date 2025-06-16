@@ -61,7 +61,7 @@ export default {
   },
   mounted() {
     // 建立與後端的 WebSocket 連線
-    this.socket = io("http://localhost:5000");
+    this.socket = io("https://cs-grenade-guide-1.onrender.com");
     // 加入以 mapName 命名的聊天室房間
     this.socket.emit("join", { map: this.mapName });
 
