@@ -2,13 +2,16 @@ services:
   - type: web
     name: cs-grenade-backend
     env: python
-    rootDir: backend
+    rootDir: backend                 # ✅ 確保這是 app.py 所在的資料夾
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    startCommand: gunicorn --worker-class eventlet -w 1 app:app
     plan: free
+    envVars:
+      - key: MONGO_URI
+        value: mongodb+srv://csplay27212win:cstommy0847@cluster0.f67rdr8.mongodb.net/cs_grenade_guide?retryWrites=true&w=majority&appName=Cluster0
 
   - type: static
     name: cs-grenade-frontend
-    rootDir: frontend
+    rootDir: frontend                # ✅ 確保這是 package.json 所在的資料夾
     buildCommand: npm install && npm run build
     staticPublishPath: dist
