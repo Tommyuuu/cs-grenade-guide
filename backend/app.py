@@ -325,6 +325,6 @@ def reject_throw(throw_id):
 
 
 if __name__ == '__main__':
-    db.initialize_data()
+    #db.initialize_data()
     #app.run(debug=True)
     socketio.run(app, debug=False)
