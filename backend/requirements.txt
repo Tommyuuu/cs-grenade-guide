@@ -3,3 +3,4 @@ flask-cors
 pymongo
 flask-socketio
 eventlet
+gunicorn
