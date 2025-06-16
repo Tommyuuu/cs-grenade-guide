@@ -1,0 +1,8 @@
+每次要跑 Vue 專案時，都要先 cd frontend 再 npm run serve
+
+後端 Flask 還在跑 localhost:5000
+
+前端 Vue 是跑在 localhost:8080
+
+之後要用 axios 從 Vue（8080）去連 Flask（5000）拿資料
+
