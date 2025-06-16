@@ -6,9 +6,7 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn --worker-class eventlet -w 1 app:app
     plan: free
-    envVars:
-      - key: MONGO_URI
-        value: mongodb+srv://csplay27212win:cstommy0847@cluster0.f67rdr8.mongodb.net/cs_grenade_guide?retryWrites=true&w=majority&appName=Cluster0
+    
 
   - type: static
     name: cs-grenade-frontend

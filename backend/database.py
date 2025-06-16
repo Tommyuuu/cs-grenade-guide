@@ -5,9 +5,6 @@ from pymongo import MongoClient
 # 從環境變數讀取 Mongo URI（Render 將設定 MONGO_URI）
 mongo_uri = os.getenv("MONGO_URI")
 client = MongoClient(mongo_uri)
-if not mongo_uri:
-    print("❌ [DB] MONGO_URI is not set!")
-    raise Exception("Missing MONGO_URI environment variable")
 
 
 # Collections
