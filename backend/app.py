@@ -263,6 +263,7 @@ def get_pending_paginated():
 #登入系統
 @app.route('/login', methods=['POST'])
 def login():
+    print("嘗試登入使用者")
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
@@ -327,4 +328,4 @@ def reject_throw(throw_id):
 if __name__ == '__main__':
     #db.initialize_data()
     #app.run(debug=True)
-    socketio.run(app, debug=False)
+    socketio.run(app, debug=True)
