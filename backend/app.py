@@ -239,12 +239,7 @@ def on_chat(data):
 
 @app.route("/dbtest")
 def dbtest():
-    try:
-        count = db.users_col.count_documents({})
-        return f"✅ Mongo OK, user count: {count}"
-    except Exception as e:
-        return f"❌ Mongo FAIL: {e}", 500
-
+    return "✅ API 啟動成功，無 DB"
 
 # 📌 回傳某地圖中某道具類型的所有點位資訊
 @app.route('/maps/<map_name>/<grenade_type>/points')
