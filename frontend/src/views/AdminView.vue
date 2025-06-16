@@ -114,7 +114,7 @@ export default {
   },
   methods: {
     fetchPending() {
-      axios.get(`http://127.0.0.1:5000/pending_methods_paginated?page=${this.page}&size=${this.pageSize}`)
+      axios.get(`https://cs-grenade-guide-1.onrender.com/pending_methods_paginated?page=${this.page}&size=${this.pageSize}`)
         .then(res => {
             this.pendingList = res.data.data;
             this.total = res.data.total;
@@ -135,7 +135,7 @@ export default {
     },
 
     selectItem(name) {
-      axios.get(`http://127.0.0.1:5000/get_single_pending/${name}`)
+      axios.get(`https://cs-grenade-guide-1.onrender.com/get_single_pending/${name}`)
         .then(res => {
             this.videoUrl=res.data.method.video_url;
             this.selected = res.data;
@@ -146,14 +146,14 @@ export default {
         });
     },
     approve(id) {
-      axios.post(`http://127.0.0.1:5000/approve/${id}`)
+      axios.post(`https://cs-grenade-guide-1.onrender.com/approve/${id}`)
         .then(() => {
           this.fetchPending();  
           this.removeItem(id);
         });
     },
     reject(id) {
-      axios.post(`http://127.0.0.1:5000/reject/${id}`)
+      axios.post(`https://cs-grenade-guide-1.onrender.com/reject/${id}`)
         .then(() => {
           this.fetchPending();  
           this.removeItem(id);

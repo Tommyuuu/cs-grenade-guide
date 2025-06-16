@@ -62,7 +62,7 @@ export default {
     const route = useRoute() //拿到 當前路由資訊
 
     onMounted(() => {
-      axios.get('http://localhost:5000/me', { withCredentials: true })
+      axios.get('https://cs-grenade-guide-1.onrender.com/me', { withCredentials: true })
         .then(res => {
           if (res.data.success) {
             userStore.login(res.data.username, res.data.role)
