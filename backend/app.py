@@ -5,7 +5,7 @@ import flask_socketio
 import datetime
 
 app=Flask(__name__)
-socketio = flask_socketio.SocketIO(app, cors_allowed_origins="*")
+socketio = flask_socketio.SocketIO(app, cors_allowed_origins="https://cs-grenade-guide-2.onrender.com")
 CORS(app, origins=["https://cs-grenade-guide-2.onrender.com"], supports_credentials=True)  # 讓前端可以連到後端
 app.secret_key = 'your_secret_key'  # 設定 session 用
 app.config.update({
@@ -328,4 +328,4 @@ def reject_throw(throw_id):
 if __name__ == '__main__':
     #db.initialize_data()
     #app.run(debug=True)
-    socketio.run(app, debug=True)
+    socketio.run(app, debug=False)
