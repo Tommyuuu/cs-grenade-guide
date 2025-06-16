@@ -5,10 +5,10 @@ import flask_socketio
 import datetime
 import eventlet
 
-eventlet.monkey_patch()
+#eventlet.monkey_patch()
 app=Flask(__name__)
 CORS(app, origins=["https://cs-grenade-guide-2.onrender.com"], supports_credentials=True)  # 讓前端可以連到後端
-socketio = flask_socketio.SocketIO(app, cors_allowed_origins=["https://cs-grenade-guide-2.onrender.com"])
+#socketio = flask_socketio.SocketIO(app, cors_allowed_origins=["https://cs-grenade-guide-2.onrender.com"])
 app.secret_key = 'your_secret_key'  # 設定 session 用
 app.config.update({
     'SESSION_COOKIE_HTTPONLY': True,
@@ -342,5 +342,5 @@ def reject_throw(throw_id):
 
 if __name__ == '__main__':
     #db.initialize_data()
-    #app.run(debug=True)
-    socketio.run(app, debug=False)
+    app.run(debug=False)
+    #socketio.run(app, debug=False)
