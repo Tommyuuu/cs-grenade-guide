@@ -6,7 +6,7 @@ import datetime
 
 app=Flask(__name__)
 socketio = flask_socketio.SocketIO(app, cors_allowed_origins="*")
-CORS(app, origins=["http://localhost:8080"], supports_credentials=True)  # 讓前端可以連到後端
+CORS(app, origins=["https://cs-grenade-guide-2.onrender.com"], supports_credentials=True)  # 讓前端可以連到後端
 app.secret_key = 'your_secret_key'  # 設定 session 用
 app.config.update({
     'SESSION_COOKIE_HTTPONLY': True,
