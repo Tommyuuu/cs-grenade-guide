@@ -5,7 +5,7 @@ import flask_socketio
 import datetime
 import eventlet
 
-#eventlet.monkey_patch()
+eventlet.monkey_patch()
 app=Flask(__name__)
 CORS(app, origins=["https://cs-grenade-guide-2.onrender.com"], supports_credentials=True)  # 讓前端可以連到後端
 #socketio = flask_socketio.SocketIO(app, cors_allowed_origins=["https://cs-grenade-guide-2.onrender.com"])
