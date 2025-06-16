@@ -11,11 +11,11 @@ if not mongo_uri:
 
 
 # Collections
-db = client["cs_grenade_guide"]
-grenades_col = db["grenades"]
-pending_col = db["pending_methods"]
-users_col = db["users"]
-chat_col = db["chat_messages"]
+db_ref = client["cs_grenade_guide"]
+grenades_col = db_ref["grenades"]
+pending_col = db_ref["pending_methods"]
+users_col = db_ref["users"]
+chat_col = db_ref["chat_messages"]
 """訊息格式
 {
   "map": "Dust2",                  // 對應的地圖名
@@ -45,7 +45,7 @@ def insert_user(username, password):
     users_col.insert_one({'username':username,'password':password,'role':'user'})
     return 1
         
-
+"""
 def initialize_data():
     from bson.objectid import ObjectId
 
@@ -241,7 +241,7 @@ def initialize_data():
         }
     } for name in maps
 ])
-
+"""
 def point(map_name, grenade_type):
     doc = grenades_col.find_one({"map": map_name})
     return doc["grenades"].get(grenade_type, []) if doc else []

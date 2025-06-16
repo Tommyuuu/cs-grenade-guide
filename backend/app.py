@@ -239,7 +239,11 @@ def on_chat(data):
 
 @app.route("/dbtest")
 def dbtest():
-    return "✅ API 啟動成功，無 DB"
+    try:
+        count = db.get_user_by_credentials("admin", "1234")
+        return f"✅ DB 查詢成功：{count is not None}"
+    except Exception as e:
+        return f"❌ DB 錯誤：{e}", 500
 
 # 📌 回傳某地圖中某道具類型的所有點位資訊
 @app.route('/maps/<map_name>/<grenade_type>/points')
