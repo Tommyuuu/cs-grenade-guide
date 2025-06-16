@@ -17,6 +17,9 @@ app.config.update({
 })
 
 """
+
+
+
 # 假資料（模擬）
 data={
     "Dust2":{
@@ -207,6 +210,8 @@ users = {
     "user1": {"password": "abc", "role": "user"}
 }
 """
+
+"""
 @socketio.on('join')
 def on_join(data):
     room = data['map']
@@ -236,7 +241,7 @@ def on_chat(data):
         "message": msg['message'],
         "timestamp": msg['timestamp'].isoformat()
     }, to=room)
-
+"""
 @app.route("/dbtest")
 def dbtest():
     try:
@@ -244,7 +249,7 @@ def dbtest():
         return f"✅ DB 查詢成功：{count is not None}"
     except Exception as e:
         return f"❌ DB 錯誤：{e}", 500
-
+"""
 # 📌 回傳某地圖中某道具類型的所有點位資訊
 @app.route('/maps/<map_name>/<grenade_type>/points')
 def get_grenade_points(map_name, grenade_type):
@@ -333,7 +338,7 @@ def reject_throw(throw_id):
     if rej:
         return jsonify({"message": "rejected"})
     return jsonify({"error": "not found"}), 404
-
+"""
 
 if __name__ == '__main__':
     #db.initialize_data()

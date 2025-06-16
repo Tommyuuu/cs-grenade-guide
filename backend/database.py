@@ -26,7 +26,7 @@ chat_col = db_ref["chat_messages"]
 
 # --- Initial Dummy Data Loader ---
 # Only run once to initialize the database
-
+"""
 def get_n_message(map,n): #傳回最近n則訊息
     return(list(chat_col.find({"map": map}).sort("timestamp", -1).limit(n)))
 def insert_msg(msg):
@@ -44,7 +44,7 @@ def insert_user(username, password):
         return 0
     users_col.insert_one({'username':username,'password':password,'role':'user'})
     return 1
-        
+   """     
 """
 def initialize_data():
     from bson.objectid import ObjectId
@@ -242,6 +242,7 @@ def initialize_data():
     } for name in maps
 ])
 """
+"""
 def point(map_name, grenade_type):
     doc = grenades_col.find_one({"map": map_name})
     return doc["grenades"].get(grenade_type, []) if doc else []
@@ -304,7 +305,7 @@ def approve_method_by_id(throw_id):
 def reject_method_by_id(throw_id):
     result = pending_col.delete_one({"id": throw_id})
     return result.deleted_count > 0
-
+"""
 
 def get_user_by_credentials(username, password):
     return users_col.find_one({"username": username, "password": password}, {"_id": 0})
