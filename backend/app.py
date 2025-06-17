@@ -1,25 +1,21 @@
-from flask import Flask, jsonify, request, session
+from flask import Flask, jsonify, request, session,  send_from_directory
 from flask_cors import CORS
-import  mongoo as db
+import db
 import flask_socketio 
 import datetime
-import eventlet
+import os
 
-eventlet.monkey_patch()
 app=Flask(__name__)
-CORS(app, origins=["https://cs-grenade-guide-2.onrender.com"], supports_credentials=True)  # 讓前端可以連到後端
-#socketio = flask_socketio.SocketIO(app, cors_allowed_origins=["https://cs-grenade-guide-2.onrender.com"])
-app.secret_key = 'your_secret_key'  # 設定 session 用
+socketio = flask_socketio.SocketIO(app, cors_allowed_origins="*")
+CORS(app, supports_credentials=True)  # 讓前端可以連到後端
+app.secret_key = os.environ.get('SECRET_KEY', 'default-insecure-key')  # 設定 session 用
 app.config.update({
     'SESSION_COOKIE_HTTPONLY': True,
-    'SESSION_COOKIE_SAMESITE': 'None',  # 或 'None'（跨網域時）
-    'SESSION_COOKIE_SECURE': True   # 上線部署時請改 True
+    'SESSION_COOKIE_SAMESITE': 'Lax',  # 或 'None'（跨網域時）
+    'SESSION_COOKIE_SECURE': False     # 上線部署時請改 True
 })
 
 """
-
-
-
 # 假資料（模擬）
 data={
     "Dust2":{
@@ -210,8 +206,6 @@ users = {
     "user1": {"password": "abc", "role": "user"}
 }
 """
-
-"""
 @socketio.on('join')
 def on_join(data):
     room = data['map']
@@ -241,15 +235,7 @@ def on_chat(data):
         "message": msg['message'],
         "timestamp": msg['timestamp'].isoformat()
     }, to=room)
-"""
-@app.route("/dbtest")
-def dbtest():
-    try:
-        count = db.get_user_by_credentials("admin", "1234")
-        return f"✅ DB 查詢成功：{count is not None}"
-    except Exception as e:
-        return f"❌ DB 錯誤：{e}", 500
-"""
+
 # 📌 回傳某地圖中某道具類型的所有點位資訊
 @app.route('/maps/<map_name>/<grenade_type>/points')
 def get_grenade_points(map_name, grenade_type):
@@ -278,7 +264,6 @@ def get_pending_paginated():
 #登入系統
 @app.route('/login', methods=['POST'])
 def login():
-    print("嘗試登入使用者")
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
@@ -308,7 +293,6 @@ def signup():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
-    print(username,password)
     su = db.insert_user(username, password)
     if su:
         return jsonify(success=True)
@@ -338,9 +322,22 @@ def reject_throw(throw_id):
     if rej:
         return jsonify({"message": "rejected"})
     return jsonify({"error": "not found"}), 404
-"""
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve_vue(path):
+    vue_dist_path = os.path.join(os.path.dirname(__file__), 'frontend/dist')
+    print("vue_dist_path = ", os.path.abspath(vue_dist_path))
+    print("index.html exists?", os.path.exists(os.path.join(vue_dist_path, 'index.html')))
+    
+    if path != "" and os.path.exists(os.path.join(vue_dist_path, path)):
+        return send_from_directory(vue_dist_path, path)
+    else:
+        return send_from_directory(vue_dist_path, 'index.html')
+
+
 
 if __name__ == '__main__':
     #db.initialize_data()
-    app.run(debug=False)
-    #socketio.run(app, debug=False)
+    #app.run(debug=True)
+    socketio.run(app, host='0.0.0.0', port=8080)

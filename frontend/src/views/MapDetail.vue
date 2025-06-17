@@ -178,7 +178,7 @@ export default {
     selectedGrenade(newVal) {
         if (newVal) {
         // 根據目前選的地圖與道具，向後端取得點位資訊
-        axios.get(`https://cs-grenade-guide-1.onrender.com/maps/${this.mapName}/${newVal}/points`)
+        axios.get(`/maps/${this.mapName}/${newVal}/points`)
             .then(res => {
             this.points = res.data;
             this.selectedPoint = null;
@@ -275,7 +275,7 @@ export default {
             }
         };
 
-        axios.post('https://cs-grenade-guide-1.onrender.com/submit_method', payload)
+        axios.post('/submit_method', payload)
             .then(() => {
             alert('送出成功，等待審核');
             this.showAddForm = false;
@@ -322,7 +322,7 @@ export default {
             }
         };
 
-        axios.post('https://cs-grenade-guide-1.onrender.com/submit_method', payload)
+        axios.post('/submit_method', payload)
             .then(() => {
             alert('送出成功，等待審核');
             this.isAddP=false;

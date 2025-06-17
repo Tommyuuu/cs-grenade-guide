@@ -1,0 +1,11 @@
+runtime: custom
+env: flex
+
+entrypoint: gunicorn -k eventlet -b :8080 main:app
+
+env_variables:
+  MONGO_URI: "mongodb+srv://csplay27212win:cstommy0847@cluster0.f67rdr8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  SECRET_KEY: "a-super-secret-long-random-string"
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 2
