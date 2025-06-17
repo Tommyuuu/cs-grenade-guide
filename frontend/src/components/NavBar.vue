@@ -62,7 +62,7 @@ export default {
     const route = useRoute() //拿到 當前路由資訊
 
     onMounted(() => {
-      axios.get('/me', { withCredentials: true })
+      axios.get('https://cs-grenade-guide-1.onrender.com/me', { withCredentials: true })
         .then(res => {
           if (res.data.success) {
             userStore.login(res.data.username, res.data.role)
@@ -73,7 +73,7 @@ export default {
     })
 
     const handleLogin = ({ username, password }) => {
-      axios.post('/login', { username, password }, { withCredentials: true })
+      axios.post('https://cs-grenade-guide-1.onrender.com/login', { username, password }, { withCredentials: true })
         .then(res => {
           if (res.data.success) {
             userStore.login(res.data.username, res.data.role)
@@ -87,7 +87,7 @@ export default {
     }
     
     const handleSignUp = ({ username, password }) => {
-      axios.post('/signup', { username, password }, { withCredentials: true })
+      axios.post('https://cs-grenade-guide-1.onrender.com/signup', { username, password }, { withCredentials: true })
         .then(res => {
           if (res.data.success) {
             alert('註冊成功')
@@ -99,7 +99,7 @@ export default {
     }
 
     const logout = () => {
-      axios.post('/logout', {}, { withCredentials: true })
+      axios.post('https://cs-grenade-guide-1.onrender.com/logout', {}, { withCredentials: true })
         .then(() => {
           userStore.logout()
           if(route.path.startsWith('/admin')){
