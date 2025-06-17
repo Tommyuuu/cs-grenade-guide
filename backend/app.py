@@ -11,8 +11,8 @@ CORS(app, supports_credentials=True)  # 讓前端可以連到後端
 app.secret_key = os.environ.get('SECRET_KEY', 'default-insecure-key')  # 設定 session 用
 app.config.update({
     'SESSION_COOKIE_HTTPONLY': True,
-    'SESSION_COOKIE_SAMESITE': 'Lax',  # 或 'None'（跨網域時）
-    'SESSION_COOKIE_SECURE': False     # 上線部署時請改 True
+    'SESSION_COOKIE_SAMESITE': 'None',  # 或 'None'（跨網域時）
+    'SESSION_COOKIE_SECURE': True     # 上線部署時請改 True
 })
 
 """
