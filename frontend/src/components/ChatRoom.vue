@@ -61,7 +61,10 @@ export default {
   },
   mounted() {
     // 建立與後端的 WebSocket 連線
-    this.socket = io();
+    this.socket = io("https://cs-grenade-guide-1.onrender.com",{
+      withCredentials: true,
+      transports: ['websocket']
+    }););
     // 加入以 mapName 命名的聊天室房間
     this.socket.emit("join", { map: this.mapName });
 
