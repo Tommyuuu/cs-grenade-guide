@@ -1,4 +1,5 @@
 # db.py
+import os
 from pymongo.mongo_client import MongoClient
 
 # 從環境變數取得 MongoDB URI
