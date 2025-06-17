@@ -2,11 +2,11 @@ services:
   - type: web
     name: cs-grenade-backend
     env: python
-    region: singapore  # 或使用 auto, oregon 等（可依 Render 提供的選項調整）
+    region: singapore
     branch: main
-    rootDir: backend  # 🔥 請根據實際情況指定 backend 資料夾
+    rootDir: backend
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn -k eventlet -b 0.0.0.0:10000 app:app
+    startCommand: gunicorn -k eventlet -b 0.0.0.0:$PORT app:app
     envVars:
       - key: MONGO_URI
         value: "mongodb+srv://csplay27212win:cstommy0847@cluster0.f67rdr8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
