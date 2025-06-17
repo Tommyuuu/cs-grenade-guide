@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: cs-grenade-backend
+    env: python
+    region: singapore  # 或使用 auto, oregon 等（可依 Render 提供的選項調整）
+    branch: main
+    rootDir: backend  # 🔥 請根據實際情況指定 backend 資料夾
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -k eventlet -b 0.0.0.0:10000 app:app
+    envVars:
+      - key: MONGO_URI
+        value: "mongodb+srv://csplay27212win:cstommy0847@cluster0.f67rdr8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+      - key: SECRET_KEY
+        value: "a-super-secret-long-random-string"
