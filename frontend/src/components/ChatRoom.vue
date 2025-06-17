@@ -70,6 +70,10 @@ export default {
       this.socket.emit("join", { map: this.mapName });
     });
 
+    this.socket.on("connect_error", (err) => {
+      console.error("Socket 連線失敗", err.message);
+    });
+    
     // 接收從後端來的訊息並顯示（不再自動捲到底）
     this.socket.on("chat", (msg) => {
       this.messages.push(msg);
