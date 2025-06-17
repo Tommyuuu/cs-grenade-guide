@@ -61,7 +61,7 @@ export default {
   },
   mounted() {
     // 建立與後端的 WebSocket 連線
-    this.socket = io("https://cs-grenade-guide-2.onrender.com",{
+    this.socket = io("https://cs-grenade-guide-1.onrender.com",{
       withCredentials: true,
       transports: ["websocket"]
     });
