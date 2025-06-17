@@ -1,11 +1,11 @@
 # db.py
 from pymongo.mongo_client import MongoClient
 
-# 從環境變數讀取 Mongo URI（Render 將設定 MONGO_URI）
-uri = "mongodb+srv://csplay27212win:cstommy0847@cluster0.f67rdr8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-# Create a new client and connect to the server
-client = MongoClient(uri)
+# 從環境變數取得 MongoDB URI
+uri = os.environ.get("MONGO_URI")
 
+# 建立 MongoDB 客戶端連線
+client = MongoClient(uri)
 try:
     client.admin.command('ping')
     print("Pinged your deployment. You successfully connected to MongoDB!")
