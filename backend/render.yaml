@@ -8,7 +8,5 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn -k eventlet -b 0.0.0.0:$PORT app:socketio
     envVars:
-      - key: MONGO_URI
-        value: "mongodb+srv://csplay27212win:cstommy0847@cluster0.f67rdr8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
       - key: SECRET_KEY
         value: "a-super-secret-long-random-string"
