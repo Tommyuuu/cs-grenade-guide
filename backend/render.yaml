@@ -6,7 +6,7 @@ services:
     branch: main
     rootDir: backend
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn -k eventlet -b 0.0.0.0:$PORT app:app
+    startCommand: gunicorn -k eventlet -b 0.0.0.0:$PORT app:socketio
     envVars:
       - key: MONGO_URI
         value: "mongodb+srv://csplay27212win:cstommy0847@cluster0.f67rdr8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
