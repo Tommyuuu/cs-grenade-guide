@@ -2,7 +2,7 @@
 FROM node:18 AS frontend-build
 WORKDIR /frontend
 
-# 安裝依賴並打包 Vue 前端
+# 安裝前端依賴並打包 Vue
 COPY frontend/package*.json ./
 RUN npm install
 COPY frontend/ .
@@ -20,11 +20,11 @@ RUN pip install -r requirements.txt
 # 複製後端程式
 COPY backend/ /app
 
-# 將前端打包結果放入 Flask 專案中
+# 複製前端打包好的 dist 到 Flask 目錄
 COPY --from=frontend-build /frontend/dist /app/frontend/dist
 
-# 啟用 port（Render 自動使用 10000）
+# Render 預設使用 PORT=10000
 EXPOSE 10000
 
-# 啟動 Flask (Gunicorn + Eventlet for SocketIO)
+# 使用 Gunicorn 啟動 Flask
 CMD ["gunicorn", "-k", "eventlet", "-b", "0.0.0.0:10000", "app:app"]
