@@ -10,10 +10,9 @@ RUN npm run build
 
 # ---------- 後端建置階段 ----------
 FROM python:3.10-slim AS backend
-WORKDIR /app
+WORKDIR /backend
 
 # 安裝後端依賴
-COPY backend/requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
