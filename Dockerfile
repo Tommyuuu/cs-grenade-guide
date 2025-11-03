@@ -1,19 +1,30 @@
-# 使用官方 Python 基底映像
-FROM python:3.10-slim
+# ---------- 前端建置階段 ----------
+FROM node:18 AS frontend-build
+WORKDIR /frontend
 
-# 建立工作目錄
+# 安裝依賴並打包 Vue 前端
+COPY frontend/package*.json ./
+RUN npm install
+COPY frontend/ .
+RUN npm run build
+
+# ---------- 後端建置階段 ----------
+FROM python:3.10-slim AS backend
 WORKDIR /app
 
-# 複製後端程式與安裝套件
-COPY backend/ /app
+# 安裝後端依賴
+COPY backend/requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# 複製前端編譯後的靜態資源
-COPY frontend/dist /app/frontend/dist
+# 複製後端程式
+COPY backend/ /app
 
-# 啟用 port 8080（GCP 預設）
-EXPOSE 8080
+# 將前端打包結果放入 Flask 專案中
+COPY --from=frontend-build /frontend/dist /app/frontend/dist
 
-# 使用 gunicorn 啟動 Flask
-CMD ["gunicorn", "-k", "eventlet", "-b", "0.0.0.0:8080", "app:app"]
+# 啟用 port（Render 自動使用 10000）
+EXPOSE 10000
+
+# 啟動 Flask (Gunicorn + Eventlet for SocketIO)
+CMD ["gunicorn", "-k", "eventlet", "-b", "0.0.0.0:10000", "app:app"]
