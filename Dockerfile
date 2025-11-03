@@ -1,26 +1,16 @@
-# ---------- 前端建置階段 ----------
-FROM node:18 AS frontend-build
-WORKDIR /frontend
+# 使用官方 Python 基底映像
+FROM python:3.10-slim
 
-# 安裝前端依賴並打包 Vue
-COPY frontend/package*.json ./
-RUN npm install
-COPY frontend/ .
-RUN npm run build
+# 建立工作目錄
+WORKDIR /app
 
-# ---------- 後端建置階段 ----------
-FROM python:3.10-slim AS backend
-WORKDIR /backend
-
-# 安裝後端依賴
+# 複製後端程式與安裝套件
+COPY backend/ /app
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# 複製後端程式
-COPY backend/ /app
-
-# 複製前端打包好的 dist 到 Flask 目錄
-COPY --from=frontend-build /frontend/dist /app/frontend/dist
+# 複製前端編譯後的靜態資源
+COPY frontend/dist /app/frontend/dist
 
 # Render 預設使用 PORT=10000
 EXPOSE 10000
