@@ -280,29 +280,46 @@ export default {
     
         // ✅ Instagram
         if (url.includes('instagram.com')) {
+          // 移除尾端的 /
           if (url.endsWith('/')) url = url.slice(0, -1);
+    
+          // 抓取 ID
+          let id = '';
+          if (url.includes('/reel/')) {
+            id = url.split('/reel/')[1].split('/')[0];
+            return {
+              type: 'iframe',
+              src: `https://www.instagram.com/reel/${id}/embed`
+            };
+          } else if (url.includes('/p/')) {
+            id = url.split('/p/')[1].split('/')[0];
+            return {
+              type: 'iframe',
+              src: `https://www.instagram.com/p/${id}/embed`
+            };
+          }
+          // fallback
           return {
             type: 'iframe',
             src: `${url}/embed`
           };
         }
-    
-        // ✅ TikTok
-        if (url.includes('tiktok.com')) {
-          const match = url.match(/video\/(\d+)/);
-          if (match) {
-            return {
-              type: 'iframe',
-              src: `https://www.tiktok.com/embed/v2/${match[1]}`
-            };
-          }
+  
+      // ✅ TikTok
+      if (url.includes('tiktok.com')) {
+        const match = url.match(/video\/(\d+)/);
+        if (match) {
+          return {
+            type: 'iframe',
+            src: `https://www.tiktok.com/embed/v2/${match[1]}`
+          };
         }
-    
-        // ✅ 其他當成本地影片
-        return { type: 'video', src: url };
       }
+  
+      // ✅ 其他當成本地影片
+      return { type: 'video', src: url };
     }
-    
+  }
     fetchVideoFromPoint() {
       this.videoUrl = this.selectedMethod;
       this.selectedMethodPanelVisible = false;
