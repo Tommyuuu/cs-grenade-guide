@@ -114,12 +114,15 @@
     <div v-if="videoUrl" class="card bg-dark text-white p-3 mb-4">
       <h5 class="text-info mb-3">🎮 影片播放</h5>
       <div class="ratio ratio-16x9">
-        <iframe
-          v-if="videoUrl.includes('youtube')"
-          :src="embedYoutube(videoUrl)"
-          allowfullscreen
-        ></iframe>
-        <video v-else class="w-100" controls :src="videoUrl"></video>
+        <template v-if="embedInfo.type === 'iframe'">
+          <iframe
+            :src="embedInfo.src"
+            allowfullscreen
+          ></iframe>
+        </template>
+        <template v-else>
+          <video class="w-100" controls :src="embedInfo.src"></video>
+        </template>
       </div>
     </div>
   </div>
@@ -207,6 +210,9 @@ export default {
     username(){
       return useUserStore().username
     }
+    embedInfo() {
+      return this.getEmbedInfo(this.videoUrl)
+    }
     
   },
 
@@ -234,6 +240,7 @@ export default {
             this.tempxy = null
         }
     },
+    
     isYoutube(url) {
         return url.includes('youtube.com') || url.includes('youtu.be');
     },
@@ -251,6 +258,50 @@ export default {
         return ''; // 無效網址處理
         }
     },
+    
+    getEmbedInfo(url) {
+        if (!url) return { type: 'none', src: '' };
+    
+        // ✅ YouTube (含 Shorts / youtu.be)
+        if (url.includes('youtube.com') || url.includes('youtu.be')) {
+          let id = '';
+          if (url.includes('youtu.be/')) {
+            id = url.split('youtu.be/')[1].split('?')[0];
+          } else if (url.includes('/shorts/')) {
+            id = url.split('/shorts/')[1].split('?')[0];
+          } else if (url.includes('v=')) {
+            id = new URL(url).searchParams.get('v');
+          }
+          return {
+            type: 'iframe',
+            src: `https://www.youtube.com/embed/${id}`
+          };
+        }
+    
+        // ✅ Instagram
+        if (url.includes('instagram.com')) {
+          if (url.endsWith('/')) url = url.slice(0, -1);
+          return {
+            type: 'iframe',
+            src: `${url}/embed`
+          };
+        }
+    
+        // ✅ TikTok
+        if (url.includes('tiktok.com')) {
+          const match = url.match(/video\/(\d+)/);
+          if (match) {
+            return {
+              type: 'iframe',
+              src: `https://www.tiktok.com/embed/v2/${match[1]}`
+            };
+          }
+        }
+    
+        // ✅ 其他當成本地影片
+        return { type: 'video', src: url };
+      }
+    }
     
     fetchVideoFromPoint() {
       this.videoUrl = this.selectedMethod;
