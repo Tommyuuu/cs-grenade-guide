@@ -117,6 +117,8 @@
         <template v-if="embedInfo.type === 'iframe'">
           <iframe
             :src="embedInfo.src"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
           ></iframe>
         </template>
