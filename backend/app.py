@@ -326,7 +326,7 @@ def reject_throw(throw_id):
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve_vue(path=''):
-    vue_dist_path = os.path.join(os.path.dirname(__file__), '../frontend/dist')
+    vue_dist_path = os.path.join(os.path.dirname(__file__), 'frontend/dist')
     print("vue_dist_path = ", os.path.abspath(vue_dist_path))
     print("index.html exists?", os.path.exists(os.path.join(vue_dist_path, 'index.html')))
     
