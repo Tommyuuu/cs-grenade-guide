@@ -1,0 +1,17 @@
+# 忽略 Python 虛擬環境
+venv/
+
+# 忽略 Git
+.git
+.gitignore
+
+# 忽略前端 node_modules（build 完不需它）
+frontend/node_modules/
+
+# 忽略不必要的檔案
+*.log
+*.pyc
+__pycache__/
+
+# 確保 Vue build 不被排除
+!frontend/dist
