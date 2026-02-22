@@ -39,7 +39,7 @@ import { useUserStore } from '@/stores/user'
 import LoginModal from './LoginModal.vue'
 import { ref,onMounted } from 'vue'
 import axios from 'axios'
-import { useRouter,useRoute  } from 'vue-router'
+import { useRouter } from 'vue-router'
 import SignUp from './SignUp.vue'
 
 
@@ -59,7 +59,7 @@ export default {
     const showSignUp = ref(false)
     const userStore = useUserStore()
     const router = useRouter() //提供改變路由的各種方法
-    //const route = useRoute() //拿到 當前路由資訊
+
 
     onMounted(() => {
       axios.get('/me', { withCredentials: true })
