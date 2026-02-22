@@ -1,7 +1,7 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
-   transpileDependencies: ['vuetify'],
-  outputDir: '../frontend/dist',
-  publicPath: './',
+  transpileDependencies: ['vuetify'],
+  outputDir: 'dist',
+  publicPath: '/',
   parallel: false,
 });
