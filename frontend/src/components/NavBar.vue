@@ -59,7 +59,7 @@ export default {
     const showSignUp = ref(false)
     const userStore = useUserStore()
     const router = useRouter() //提供改變路由的各種方法
-    const route = useRoute() //拿到 當前路由資訊
+    //const route = useRoute() //拿到 當前路由資訊
 
     onMounted(() => {
       axios.get('/me', { withCredentials: true })
@@ -102,12 +102,7 @@ export default {
       axios.post('/logout', {}, { withCredentials: true })
         .then(() => {
           userStore.logout()
-          if(route.path.startsWith('/admin')){
-            router.push(`/`)
-          }
-          else{
-            router.push(`/`)
-          }
+          router.push(`/`)
         })
     }
 
