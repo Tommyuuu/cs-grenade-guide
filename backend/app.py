@@ -5,9 +5,13 @@ import flask_socketio
 import datetime
 import os
 
+base_dir = os.path.abspath(os.path.dirname(__file__))
+dist_dir = os.path.join(base_dir, "dist")
+
 app = Flask(__name__, 
-            static_folder="/app/dist/assets", 
-            template_folder="/app/dist")
+            static_folder=os.path.join(dist_dir, "assets"), 
+            template_folder=dist_dir)
+
 socketio = flask_socketio.SocketIO(app, cors_allowed_origins="*")
 CORS(app, supports_credentials=True)  # 讓前端可以連到後端
 app.secret_key = os.environ.get('SECRET_KEY', 'default-insecure-key')  # 設定 session 用
