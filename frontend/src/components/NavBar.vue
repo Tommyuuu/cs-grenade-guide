@@ -79,7 +79,7 @@ export default {
             userStore.login(res.data.username, res.data.role)
             showLogin.value = false
             showSignUp.value = false
-            location.reload()
+            router.push(`/`)
           } else {
             alert('帳號或密碼錯誤')
           }
