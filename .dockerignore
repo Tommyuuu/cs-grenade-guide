@@ -14,4 +14,5 @@ frontend/node_modules/
 __pycache__/
 
 # 確保 Vue build 不被排除
-!frontend/dist
+frontend/dist/
+frontend/dist_old/
