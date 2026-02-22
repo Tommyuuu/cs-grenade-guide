@@ -13,12 +13,12 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # 複製後端程式與安裝套件
-COPY backend/ /app
+COPY backend/ .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN pip install gunicorn eventlet
 
-COPY --from=build-stage /app/frontend/dist /app/dist
+COPY --from=build-stage /app/frontend/dist ./dist
 # Render 預設使用 PORT=10000
 EXPOSE 10000
 
