@@ -102,7 +102,12 @@ export default {
       axios.post('/logout', {}, { withCredentials: true })
         .then(() => {
           userStore.logout()
-          router.push(`/`)
+          if(route.path.startsWith('/admin')){
+            router.push(`/`)
+          }
+          else{
+            router.push(`/`)
+          }
         })
     }
 
