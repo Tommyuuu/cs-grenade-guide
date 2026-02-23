@@ -246,7 +246,9 @@ def on_chat(data):
 @app.route('/maps/<map_name>/<grenade_type>/points')
 def get_grenade_points(map_name, grenade_type):
     points = db.point(map_name, grenade_type)
-    return jsonify(points)
+    resp = jsonify(points)
+    resp.headers['Cache-Control'] = 'public, max-age=600'
+    return resp
 
 # 新增方法（給使用者用）
 @app.route('/submit_method', methods=['POST'])
